@@ -1,0 +1,16 @@
+/* 
+  Localizable.strings
+  MultiLanguageSwift3
+
+  Created by Nguyen Van Thieu B on 11/9/16.
+  Copyright © 2016 Thieu Mao. All rights reserved.
+*/
+
+"Share Application" = "แบ่งปันแอพลิเคชัน";
+"Invite Friends" = "ชวนเพื่อน";
+"Feedback" = "ความคิดเห็น";
+"Language" = "ภาษา";
+"About" = "เกี่ยวกับ";
+"version" = "รุ่น";
+"Developed by" = "พัฒนาโดย";
+"Together we change the world." = "ร่วมกันเราเปลี่ยนโลก";
