@@ -14,7 +14,7 @@ class Language: NSObject {
     static var bundle: Bundle? = nil
     
     override class func initialize() {
-        var current = self.getCurrentLanguage()
+        let current = self.getCurrentLanguage()
         self.setLanguage(current)
     }
     
@@ -22,7 +22,7 @@ class Language: NSObject {
         UserDefaults.standard.set(language, forKey: "curren_language")
         UserDefaults.standard.synchronize()
         var filePath = "\(self.appDocumentDirectory())/\(language).lproj"
-        var exists = FileManager.default.fileExists(atPath: filePath)
+        let exists = FileManager.default.fileExists(atPath: filePath)
         if !exists {
             filePath = Bundle.main.path(forResource: language, ofType: "lproj")!
         }
@@ -30,7 +30,7 @@ class Language: NSObject {
     }
     
     class func getCurrentLanguage() -> String {
-        var defs = UserDefaults.standard
+        let defs = UserDefaults.standard
         var lang = defs.object(forKey: "curren_language") as! String?
         if lang?.characters.count == 0 {
             return lang!
@@ -53,19 +53,18 @@ class Language: NSObject {
     }
     
     class func getLanguageCode(_ language: String) -> String {
-        if (language == "Indonesia") {
+        switch language {
+        case "Indonesia":
             return "id"
-        }
-        else if (language == "English") {
+        case "English":
             return "en"
-        }
-        else if (language == "Japanese") {
+        case "Japanese":
             return "ja"
-        }
-        else if (language == "Thái Lan") {
+        case "Thái Lan":
             return "th"
+        default:
+            return "vi"
         }
-        return "vi"
     }
     
 }
