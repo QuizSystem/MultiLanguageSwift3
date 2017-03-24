@@ -9,14 +9,6 @@
 import UIKit
 
 class BaseUIView: UIView {
-
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
-    }
-    */
     
     var listLanguageView = [UIView]()
     var listLanguageText = [String]()
@@ -41,34 +33,17 @@ class BaseUIView: UIView {
     }
     
     func getLanguageFor(_ parentView: UIView) {
-        for view: UIView in parentView.subviews {
-            if (view is UILabel) {
-                listLanguageView.append(view)
-                var text = (view as! UILabel).text!
-                if text == "" {
-                    text = ""
-                }
-                listLanguageText.append(text)
-            }
-            else if (view is UITextField) {
-                var textField = (view as! UITextField)
-                listLanguageView.append(view)
-                var text = textField.placeholder!
-                if text == "" {
-                    text = ""
-                }
-                listLanguageText.append(text)
-            }
-            else if (view is UIButton) {
-                var button = (view as! UIButton)
-                listLanguageView.append(view)
-                var text = button.title(for: .normal)!
-                if text == "" {
-                    text = ""
-                }
-                listLanguageText.append(text)
-            }
-            else {
+        for view in parentView.subviews {
+            if let label = view as? UILabel {
+                listLanguageView.append(label)
+                listLanguageText.append(label.text ?? "")
+            } else if let textField = view as? UITextField {
+                listLanguageView.append(textField)
+                listLanguageText.append(textField.placeholder ?? "")
+            } else if let button = view as? UIButton {
+                listLanguageView.append(button)
+                listLanguageText.append(button.title(for: .normal) ?? "")
+            } else {
                 self.getLanguageFor(view)
             }
         }
@@ -81,16 +56,11 @@ class BaseUIView: UIView {
             self.getLanguageFor(self)
         }
         for i in 0..<listLanguageView.count {
-            var view = listLanguageView[i]
-            if (view is UILabel) {
-                (view as! UILabel).text = Language.get(listLanguageText[i])
-            }
-            else if (view is UITextField) {
-                var textField = (view as! UITextField)
-                textField.placeholder! = Language.get(listLanguageText[i])
-            }
-            else if (view is UIButton) {
-                var button = (view as! UIButton)
+            if let label = listLanguageView[i] as? UILabel {
+                label.text = Language.get(listLanguageText[i])
+            } else if let textField = listLanguageView[i] as? UITextField {
+                textField.placeholder = Language.get(listLanguageText[i])
+            } else if let button = listLanguageView[i] as? UIButton {
                 button.setTitle(Language.get(listLanguageText[i]), for: .normal)
             }
         }
